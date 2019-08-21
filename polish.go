@@ -42,7 +42,7 @@ func isOperation(op string) bool {
 }
 
 func calc(expr string) (result int) {
-	stack := new(Stack)
+	var stack Stack
 	for _, token := range strings.Fields(expr) {
 		if isOperation(token) {
 			op2, e := stack.Pop()
