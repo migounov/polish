@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -47,11 +48,11 @@ func calc(expr string) (result int) {
 		if isOperation(token) {
 			op2, e := stack.Pop()
 			if e != nil {
-				panic(e)
+				log.Fatal(e)
 			}
 			op1, e := stack.Pop()
 			if e != nil {
-				panic(e)
+				log.Fatal(e)
 			}
 
 			var res int
@@ -69,12 +70,15 @@ func calc(expr string) (result int) {
 		} else {
 			op, e := strconv.Atoi(token)
 			if e != nil {
-				panic(e)
+				log.Fatal(e)
 			}
 			stack.Push(op)
 		}
 	}
-	result, _ = stack.Pop()
+	result, e := stack.Pop()
+	if e != nil {
+		log.Fatal(e)
+	}
 	return result
 }
 
